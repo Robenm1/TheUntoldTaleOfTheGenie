@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e60c891356a7d45a64eaa3e3643146, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  maxHealth: 1000
+  currentHealth: 1000
+  healthRegenRate: 0
+  moveSpeed: 3
+  acceleration: 10
+  deceleration: 100
+  dashDistance: 2
+  dashDuration: 0.2
+  dashCooldown: 1
+  lightAttackComboCount: 3
+  lightAttackSpeed: 0.3
+  lightAttackComboDuration: 1.5
+  lightAttackDamage:
+  - 10
+  - 12
+  - 15
+  heavyAttackComboCount: 3
+  heavyAttackSpeed: 0.6
+  heavyAttackComboDuration: 5
+  heavyAttackDamage:
+  - 25
+  - 25
+  - 35
+  attackRange: 2
+  comboResetTime: 1
+  ability1Cooldown: 5
+  ability1Damage: 20
+  ability1Duration: 2
+  ability2Cooldown: 8
+  ability2Damage: 30
+  ability2Duration: 3
+  armor: 10
+  damageReduction: 0.1

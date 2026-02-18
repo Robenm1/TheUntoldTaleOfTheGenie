@@ -1,0 +1,839 @@
+fileFormatVersion: 2
+guid: 60859128d5760754cb33e55301a78d59
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1070366480930169768
+    second: Cast Spell-Spell 3_0
+  - first:
+      213: -902526144313976203
+    second: Cast Spell-Spell 3_1
+  - first:
+      213: 5270052565883713892
+    second: Cast Spell-Spell 3_2
+  - first:
+      213: -6210921101128989504
+    second: Cast Spell-Spell 3_3
+  - first:
+      213: 8616843914002581819
+    second: Cast Spell-Spell 3_4
+  - first:
+      213: 4043798569958266420
+    second: Cast Spell-Spell 3_5
+  - first:
+      213: 7576046288449756744
+    second: Cast Spell-Spell 3_6
+  - first:
+      213: -1718834148711721326
+    second: Cast Spell-Spell 3_7
+  - first:
+      213: -1835561305605862005
+    second: Cast Spell-Spell 3_8
+  - first:
+      213: -4356579723718029272
+    second: Cast Spell-Spell 3_9
+  - first:
+      213: 1510156053523082756
+    second: Cast Spell-Spell 3_10
+  - first:
+      213: 6489368300723721096
+    second: Cast Spell-Spell 3_11
+  - first:
+      213: -6432991364135341281
+    second: Cast Spell-Spell 3_12
+  - first:
+      213: -1551955184313009
+    second: Cast Spell-Spell 3_13
+  - first:
+      213: 3316374634737251303
+    second: Cast Spell-Spell 3_14
+  - first:
+      213: 54164150300860852
+    second: Cast Spell-Spell 3_15
+  - first:
+      213: 159622277203906486
+    second: Cast Spell-Spell 3_16
+  - first:
+      213: 5854065196152083422
+    second: Cast Spell-Spell 3_17
+  - first:
+      213: -6879433596089283540
+    second: Cast Spell-Spell 3_18
+  - first:
+      213: 7892848719420753642
+    second: Cast Spell-Spell 3_19
+  - first:
+      213: 4332083275577900748
+    second: Cast Spell-Spell 3_20
+  - first:
+      213: 4378707845909712186
+    second: Cast Spell-Spell 3_21
+  - first:
+      213: 8508355003772693078
+    second: Cast Spell-Spell 3_22
+  - first:
+      213: -5887450588513733004
+    second: Cast Spell-Spell 3_23
+  - first:
+      213: -7066275725967394312
+    second: Cast Spell-Spell 3_24
+  - first:
+      213: 2323763529603442559
+    second: Cast Spell-Spell 3_25
+  - first:
+      213: 2542281502483123726
+    second: Cast Spell-Spell 3_26
+  - first:
+      213: 8245928380893031516
+    second: Cast Spell-Spell 3_27
+  - first:
+      213: 452253571559514906
+    second: Cast Spell-Spell 3_28
+  - first:
+      213: 1188538802623193757
+    second: Cast Spell-Spell 3_29
+  - first:
+      213: 4394950859610102666
+    second: Cast Spell-Spell 3_30
+  - first:
+      213: -1094313178820355295
+    second: Cast Spell-Spell 3_31
+  - first:
+      213: -6479725137290084054
+    second: Cast Spell-Spell 3_32
+  - first:
+      213: -7040790421029549470
+    second: Cast Spell-Spell 3_33
+  - first:
+      213: 102938092179317686
+    second: Cast Spell-Spell 3_34
+  - first:
+      213: 1642031339749903775
+    second: Cast Spell-Spell 3_35
+  - first:
+      213: 6220051836994905237
+    second: Cast Spell-Spell 3_36
+  - first:
+      213: 8964605242225590587
+    second: Cast Spell-Spell 3_37
+  - first:
+      213: -654768336857620547
+    second: Cast Spell-Spell 3_38
+  - first:
+      213: 1550675766016006118
+    second: Cast Spell-Spell 3_39
+  - first:
+      213: 3667126620883969819
+    second: Cast Spell-Spell 3_40
+  - first:
+      213: -7219262426831851896
+    second: Cast Spell-Spell 3_41
+  - first:
+      213: -8633244962188605207
+    second: Cast Spell-Spell 3_42
+  - first:
+      213: -3151270943237857695
+    second: Cast Spell-Spell 3_43
+  - first:
+      213: 2844281926230211275
+    second: Cast Spell-Spell 3_44
+  - first:
+      213: 3573684117707236839
+    second: Cast Spell-Spell 3_45
+  - first:
+      213: -5300315550191178311
+    second: Cast Spell-Spell 3_46
+  - first:
+      213: -5401987081864193395
+    second: Cast Spell-Spell 3_47
+  - first:
+      213: 7073908129711254172
+    second: Cast Spell-Spell 3_48
+  - first:
+      213: -846089827375117573
+    second: Cast Spell-Spell 3_49
+  - first:
+      213: -7284848310986017771
+    second: Cast Spell-Spell 3_50
+  - first:
+      213: 1802338313344012346
+    second: Cast Spell-Spell 3_51
+  - first:
+      213: -8075189646299100936
+    second: Cast Spell-Spell 3_52
+  - first:
+      213: -6692847242090789966
+    second: Cast Spell-Spell 3_53
+  - first:
+      213: 8363777539189126276
+    second: Cast Spell-Spell 3_54
+  - first:
+      213: 8180281935804945711
+    second: Cast Spell-Spell 3_55
+  - first:
+      213: 5369697140242294711
+    second: Cast Spell-Spell 3_56
+  - first:
+      213: 8934004301455492084
+    second: Cast Spell-Spell 3_57
+  - first:
+      213: 8186861743149022836
+    second: Cast Spell-Spell 3_58
+  - first:
+      213: -7625266770228216350
+    second: Cast Spell-Spell 3_59
+  - first:
+      213: 1715253913706734219
+    second: Cast Spell-Spell 3_60
+  - first:
+      213: 2616503356929418491
+    second: Cast Spell-Spell 3_61
+  - first:
+      213: 5459729067991385026
+    second: Cast Spell-Spell 3_62
+  - first:
+      213: -5342512368370633378
+    second: Cast Spell-Spell 3_63
+  - first:
+      213: -8558147866184407449
+    second: Cast Spell-Spell 3_64
+  - first:
+      213: -5069927179722249015
+    second: Cast Spell-Spell 3_65
+  - first:
+      213: 4717574392960821032
+    second: Cast Spell-Spell 3_66
+  - first:
+      213: 34313440614658259
+    second: Cast Spell-Spell 3_67
+  - first:
+      213: 6869972170422682808
+    second: Cast Spell-Spell 3_68
+  - first:
+      213: -5554311710287224235
+    second: Cast Spell-Spell 3_69
+  - first:
+      213: -6463488465076146776
+    second: Cast Spell-Spell 3_70
+  - first:
+      213: -5361042361304402264
+    second: Cast Spell-Spell 3_71
+  - first:
+      213: 2062065012254959741
+    second: Cast Spell-Spell 3_72
+  - first:
+      213: 3780957425159316376
+    second: Cast Spell-Spell 3_73
+  - first:
+      213: 6740634918500076432
+    second: Cast Spell-Spell 3_74
+  - first:
+      213: 6294613239990701335
+    second: Cast Spell-Spell 3_75
+  - first:
+      213: 6626825320698019768
+    second: Cast Spell-Spell 3_76
+  - first:
+      213: -9146702931265601308
+    second: Cast Spell-Spell 3_77
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HeavyAttack2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cb72a146b4c85444a3e3ee524667944
+      internalID: 904048157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b29e5fe170101aa45a2625ea35ed8338
+      internalID: -865805414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cffeec5f2ed8f8b4a8bccfac23ac93d6
+      internalID: 910012190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 066b59123d5e70644895fa9518fe0d16
+      internalID: -91904650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce20760f0db81d142a31fdde76ca77be
+      internalID: 141779041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3def85ef3d0023841a12f8810691370a
+      internalID: -426543023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eae5f27bb04ba9419f6ee9a1372997a
+      internalID: 826299242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e90ecc4b470af074d832b578236e8940
+      internalID: 1286532649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54ae95b667a96794ab36e181a5442cef
+      internalID: -801124441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_9
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 871f0d924586fff44acded4bee16b586
+      internalID: 877305846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_10
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c9cace8234f7dc45aa598c86a1f4b06
+      internalID: -1987792576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_11
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bb5646485482b9428f804e541dc10e7
+      internalID: -853356955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_12
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3ec612633e2fcc48b1cfd374d53b842
+      internalID: 47402252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_13
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eaa0582802baa14bb065816667c6816
+      internalID: 585395760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_14
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 296f8cf11872605469cac017d6c1a8d2
+      internalID: -1595855544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_15
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 413a9b9172db8f146b5836a2bde88b67
+      internalID: 1912179558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_16
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e113dce91256a9249bd9c2dc58ac8631
+      internalID: -676999713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_17
+      rect:
+        serializedVersion: 2
+        x: 2176
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab83bb50236841f4aba0022189e86604
+      internalID: 481190954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_18
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71d9a0619063f1046a94ebea91c6d1fa
+      internalID: -200222219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeavyAttack2_19
+      rect:
+        serializedVersion: 2
+        x: 2432
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57e06c2546c552941915217764c9d61e
+      internalID: -538677690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c2394e35991a39e4f9379b08520fc811
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":20.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      HeavyAttack2_0: 904048157
+      HeavyAttack2_1: -865805414
+      HeavyAttack2_10: -1987792576
+      HeavyAttack2_11: -853356955
+      HeavyAttack2_12: 47402252
+      HeavyAttack2_13: 585395760
+      HeavyAttack2_14: -1595855544
+      HeavyAttack2_15: 1912179558
+      HeavyAttack2_16: -676999713
+      HeavyAttack2_17: 481190954
+      HeavyAttack2_18: -200222219
+      HeavyAttack2_19: -538677690
+      HeavyAttack2_2: 910012190
+      HeavyAttack2_3: -91904650
+      HeavyAttack2_4: 141779041
+      HeavyAttack2_5: -426543023
+      HeavyAttack2_6: 826299242
+      HeavyAttack2_7: 1286532649
+      HeavyAttack2_8: -801124441
+      HeavyAttack2_9: 877305846
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
