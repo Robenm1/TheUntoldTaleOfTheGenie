@@ -27,6 +27,11 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private float attack3MaxRange = 28.5f;
     [SerializeField] private float attack3HeightAboveEnemy = 2f;
 
+    [Header("Damage Timing")]
+    [SerializeField] private float attack1DamageDelay = 0.2f;
+    [SerializeField] private float attack2DamageDelay = 0.2f;
+    [SerializeField] private float attack3DamageDelay = 0.3f;
+
     [Header("Combo Settings")]
     [SerializeField] private float comboWindow = 3f;
 
@@ -62,6 +67,16 @@ public class PlayerCombat : MonoBehaviour
 
         HandleHeavyAttackInput();
         CheckComboReset();
+    }
+
+    public bool IsAttacking()
+    {
+        return isAttacking;
+    }
+
+    public int GetCurrentCombo()
+    {
+        return currentHeavyCombo;
     }
 
     private void HandleHeavyAttackInput()
@@ -130,7 +145,7 @@ public class PlayerCombat : MonoBehaviour
             GameObject vfx = Instantiate(heavyAttack1VFX, heavyAttack1Point.position, heavyAttack1Point.rotation);
             Destroy(vfx, attack1Duration);
 
-            DealDamageInArea(heavyAttack1Point.position, 0);
+            Invoke(nameof(DealAttack1Damage), attack1DamageDelay);
         }
         else
         {
@@ -146,7 +161,7 @@ public class PlayerCombat : MonoBehaviour
             GameObject vfx = Instantiate(heavyAttack2VFX, heavyAttack2Point.position, heavyAttack2Point.rotation);
             Destroy(vfx, attack2Duration);
 
-            DealDamageInArea(heavyAttack2Point.position, 1);
+            Invoke(nameof(DealAttack2Damage), attack2DamageDelay);
         }
         else
         {
@@ -178,11 +193,36 @@ public class PlayerCombat : MonoBehaviour
             GameObject vfx = Instantiate(heavyAttack3VFX, spawnPosition, Quaternion.identity);
             Destroy(vfx, attack3Duration);
 
-            DealDamageInArea(nearestEnemy.position, 2);
+            Invoke(nameof(DealAttack3Damage), attack3DamageDelay);
         }
         else
         {
             Debug.LogWarning("No enemy found within range for Attack 3!");
+        }
+    }
+
+    private void DealAttack1Damage()
+    {
+        if (heavyAttack1Point != null)
+        {
+            DealDamageInArea(heavyAttack1Point.position, 0);
+        }
+    }
+
+    private void DealAttack2Damage()
+    {
+        if (heavyAttack2Point != null)
+        {
+            DealDamageInArea(heavyAttack2Point.position, 1);
+        }
+    }
+
+    private void DealAttack3Damage()
+    {
+        Transform nearestEnemy = FindNearestEnemy();
+        if (nearestEnemy != null)
+        {
+            DealDamageInArea(nearestEnemy.position, 2);
         }
     }
 
@@ -217,8 +257,6 @@ public class PlayerCombat : MonoBehaviour
     {
         Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, attack3MaxRange, enemyLayers);
 
-        Debug.Log($"Found {nearbyEnemies.Length} enemies within range {attack3MaxRange}");
-
         if (nearbyEnemies.Length == 0)
         {
             return null;
@@ -237,7 +275,6 @@ public class PlayerCombat : MonoBehaviour
             }
         }
 
-        Debug.Log($"Closest enemy: {closestEnemy?.name} at distance: {closestDistance}");
         return closestEnemy;
     }
 

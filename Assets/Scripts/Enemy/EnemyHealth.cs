@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [Header("Health Settings")]
-    [SerializeField] private float maxHealth = 100f;
+    [Header("References")]
+    [SerializeField] private EnemyStats stats;
 
     [Header("UI")]
     [SerializeField] private Slider healthSlider;
@@ -13,16 +13,24 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        if (stats == null)
+        {
+            Debug.LogError("EnemyStats not assigned on " + gameObject.name);
+            return;
+        }
+
+        currentHealth = stats.maxHealth;
         UpdateHealthUI();
     }
 
     public void TakeDamage(float damage)
     {
+        if (stats == null) return;
+
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth);
 
-        Debug.Log($"{gameObject.name} took {damage} damage! Health: {currentHealth}/{maxHealth}");
+        Debug.Log($"{gameObject.name} took {damage} damage! Health: {currentHealth}/{stats.maxHealth}");
 
         UpdateHealthUI();
 
@@ -32,11 +40,28 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public void Heal(float amount)
+    {
+        if (stats == null) return;
+
+        currentHealth += amount;
+        currentHealth = Mathf.Min(stats.maxHealth, currentHealth);
+
+        Debug.Log($"{gameObject.name} healed {amount}! Health: {currentHealth}/{stats.maxHealth}");
+
+        UpdateHealthUI();
+    }
+
+    public bool IsAlive()
+    {
+        return currentHealth > 0;
+    }
+
     private void UpdateHealthUI()
     {
-        if (healthSlider != null)
+        if (healthSlider != null && stats != null)
         {
-            healthSlider.maxValue = maxHealth;
+            healthSlider.maxValue = stats.maxHealth;
             healthSlider.value = currentHealth;
         }
     }
@@ -54,6 +79,21 @@ public class EnemyHealth : MonoBehaviour
 
     public float GetMaxHealth()
     {
-        return maxHealth;
+        return stats != null ? stats.maxHealth : 0;
+    }
+
+    public float GetHealthPercentage()
+    {
+        return stats != null ? currentHealth / stats.maxHealth : 0;
+    }
+
+    public void ResetHealth()
+    {
+        if (stats != null)
+        {
+            currentHealth = stats.maxHealth;
+            UpdateHealthUI();
+            Debug.Log($"{gameObject.name} health reset to full");
+        }
     }
 }
