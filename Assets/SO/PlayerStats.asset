@@ -21,13 +21,18 @@ MonoBehaviour:
   dashDistance: 2
   dashDuration: 0.2
   dashCooldown: 1
-  lightAttackComboCount: 3
-  lightAttackSpeed: 0.3
-  lightAttackComboDuration: 1.5
+  lightAttackComboCount: 2
+  lightAttackSpeed: 0.1
+  lightAttackComboDuration: 1.2
   lightAttackDamage:
   - 10
   - 12
-  - 15
+  lightAttackDuration:
+  - 0.4
+  - 0.5
+  lightAttackDamageDelay:
+  - 0.15
+  - 0.2
   heavyAttackComboCount: 3
   heavyAttackSpeed: 0.6
   heavyAttackComboDuration: 5

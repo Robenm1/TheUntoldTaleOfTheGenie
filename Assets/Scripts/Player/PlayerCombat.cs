@@ -5,6 +5,7 @@ public class PlayerCombat : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private PlayerStats stats;
+    [SerializeField] private PlayerLightAttack lightAttack;
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference heavyAttackAction;
@@ -20,17 +21,17 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject heavyAttack2VFX;
     [SerializeField] private GameObject heavyAttack3VFX;
 
+    [Header("Damage Timing")]
+    [SerializeField] private float attack1DamageDelay = 0.2f;
+    [SerializeField] private float attack2DamageDelay = 0.2f;
+    [SerializeField] private float attack3DamageDelay = 0.3f;
+
     [Header("VFX Settings")]
     [SerializeField] private float attack1Duration = 1.0f;
     [SerializeField] private float attack2Duration = 1.7f;
     [SerializeField] private float attack3Duration = 1.8f;
     [SerializeField] private float attack3MaxRange = 28.5f;
     [SerializeField] private float attack3HeightAboveEnemy = 2f;
-
-    [Header("Damage Timing")]
-    [SerializeField] private float attack1DamageDelay = 0.2f;
-    [SerializeField] private float attack2DamageDelay = 0.2f;
-    [SerializeField] private float attack3DamageDelay = 0.3f;
 
     [Header("Combo Settings")]
     [SerializeField] private float comboWindow = 3f;
@@ -40,6 +41,19 @@ public class PlayerCombat : MonoBehaviour
     private bool isAttacking;
 
     private const int TOTAL_HEAVY_ATTACKS = 3;
+
+    private void Start()
+    {
+        if (stats == null)
+        {
+            Debug.LogError("PlayerStats not assigned on " + gameObject.name);
+        }
+
+        if (lightAttack == null)
+        {
+            lightAttack = GetComponent<PlayerLightAttack>();
+        }
+    }
 
     private void OnEnable()
     {
@@ -51,14 +65,6 @@ public class PlayerCombat : MonoBehaviour
     {
         if (heavyAttackAction != null)
             heavyAttackAction.action.Disable();
-    }
-
-    private void Start()
-    {
-        if (stats == null)
-        {
-            Debug.LogError("PlayerStats not assigned on " + gameObject.name);
-        }
     }
 
     private void Update()
@@ -83,9 +89,15 @@ public class PlayerCombat : MonoBehaviour
     {
         if (heavyAttackAction != null && heavyAttackAction.action.WasPressedThisFrame())
         {
-            if (!isAttacking)
+            bool lightAttacking = lightAttack != null && lightAttack.IsAttacking();
+
+            if (!isAttacking && !lightAttacking)
             {
                 PerformHeavyAttack();
+            }
+            else if (lightAttacking)
+            {
+                Debug.Log("Can't heavy attack - light attack is playing!");
             }
             else
             {

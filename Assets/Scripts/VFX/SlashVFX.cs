@@ -8,6 +8,13 @@ public class SlashVFX : MonoBehaviour
 
     private Transform parentTransform;
     private Vector3 localOffset;
+    private VFXFlipper vfxFlipper;
+
+    private void Awake()
+    {
+        vfxFlipper = gameObject.AddComponent<VFXFlipper>();
+        vfxFlipper.RecordOriginalScale();
+    }
 
     private void Start()
     {
