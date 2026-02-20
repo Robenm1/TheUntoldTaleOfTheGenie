@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Game/Player Stats")]
 public class PlayerStats : ScriptableObject
@@ -19,10 +19,12 @@ public class PlayerStats : ScriptableObject
     public float dashCooldown = 1f;
 
     [Header("Light Attack Combo")]
-    public int lightAttackComboCount = 3;
+    public int lightAttackComboCount = 2;
     public float lightAttackSpeed = 0.3f;
-    public float lightAttackComboDuration = 1.5f;
-    public float[] lightAttackDamage = new float[] { 10f, 12f, 15f };
+    public float lightAttackComboDuration = 1.2f;  // ← CHANGED: Combo window
+    public float[] lightAttackDamage = new float[] { 10f, 12f };
+    public float[] lightAttackDuration = new float[] { 0.5f, 0.42f };  // ← FIXED: Was backwards!
+    public float[] lightAttackDamageDelay = new float[] { 0.2f, 0.17f };  // ← FIXED
 
     [Header("Heavy Attack Combo")]
     public int heavyAttackComboCount = 2;
@@ -73,6 +75,20 @@ public class PlayerStats : ScriptableObject
         if (comboIndex >= 0 && comboIndex < lightAttackDamage.Length)
             return lightAttackDamage[comboIndex];
         return lightAttackDamage[0];
+    }
+
+    public float GetLightAttackDuration(int comboIndex)
+    {
+        if (comboIndex >= 0 && comboIndex < lightAttackDuration.Length)
+            return lightAttackDuration[comboIndex];
+        return lightAttackDuration[0];
+    }
+
+    public float GetLightAttackDamageDelay(int comboIndex)
+    {
+        if (comboIndex >= 0 && comboIndex < lightAttackDamageDelay.Length)
+            return lightAttackDamageDelay[comboIndex];
+        return lightAttackDamageDelay[0];
     }
 
     public float GetHeavyAttackDamage(int comboIndex)

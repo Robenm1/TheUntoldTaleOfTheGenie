@@ -27,6 +27,13 @@ public class EnemyHealth : MonoBehaviour
     {
         if (stats == null) return;
 
+        EnemyAI enemyAI = GetComponent<EnemyAI>();
+        if (enemyAI != null && enemyAI.IsDamageImmune())
+        {
+            Debug.Log($"{gameObject.name} is damage immune during through-dodge!");
+            return;
+        }
+
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth);
 
