@@ -12,6 +12,9 @@ public class EnemyAI : MonoBehaviour
     private PlayerCombat playerHeavyAttack;
     private PlayerLightAttack playerLightAttack;
     private Collider2D enemyCollider;
+    private GenieAbility1 genieAbility;
+    private GenieAbility2 genieAbility2;
+    private StunEffect stunEffect;
 
     [Header("Detection")]
     [SerializeField] private float detectionRange = 15f;
@@ -36,6 +39,17 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 2f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Ability Avoidance")]
+    [SerializeField] private float abilityFleeSpeed = 7f;
+    [SerializeField] private float abilityFleeDistance = 8f;
+    [SerializeField] private float fleeDirectionChangeInterval = 0.5f;
+
+    [Header("Stamina Flee Settings")]
+    [SerializeField] private float staminaFleeSpeed = 5f;
+    [SerializeField] private float staminaFleeDistance = 10f;
+    [SerializeField] private float staminaFleeThreshold = 20f;
+    [SerializeField] private float staminaRecoveryThreshold = 0.5f;
+
     private bool isDodging = false;
     private bool isRetreating = false;
     private bool isDamageImmune = false;
@@ -46,6 +60,10 @@ public class EnemyAI : MonoBehaviour
     private float retreatStartTime = 0f;
     private float minRetreatDuration = 0.4f;
     private bool isThroughDodging = false;
+    private bool isFleeingFromAbility = false;
+    private float lastFleeDirectionChange = 0f;
+    private float currentFleeDirection = 1f;
+    private bool isFleeingFromStaminaLoss = false;
 
     private void Awake()
     {
@@ -53,6 +71,7 @@ public class EnemyAI : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
         enemyCombat = GetComponent<EnemyCombat>();
         enemyCollider = GetComponent<Collider2D>();
+        stunEffect = GetComponent<StunEffect>();
     }
 
     private void Start()
@@ -76,6 +95,8 @@ public class EnemyAI : MonoBehaviour
 
         playerHeavyAttack = player.GetComponent<PlayerCombat>();
         playerLightAttack = player.GetComponent<PlayerLightAttack>();
+        genieAbility = player.GetComponent<GenieAbility1>();
+        genieAbility2 = player.GetComponent<GenieAbility2>();
 
         if (playerHeavyAttack != null)
         {
@@ -87,6 +108,16 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("✓ Found PlayerLightAttack component!");
         }
 
+        if (genieAbility != null)
+        {
+            Debug.Log("✓ Found GenieAbility1 component!");
+        }
+
+        if (genieAbility2 != null)
+        {
+            Debug.Log("✓ Found GenieAbility2 component!");
+        }
+
         if (rb != null) Debug.Log("✓ Rigidbody2D assigned");
         if (enemyHealth != null) Debug.Log("✓ EnemyHealth assigned");
         if (enemyCombat != null) Debug.Log("✓ EnemyCombat assigned");
@@ -96,7 +127,17 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        if (!enabled) return;
+
         if (player == null || enemyHealth == null || !enemyHealth.IsAlive()) return;
+
+        if (stunEffect != null && stunEffect.IsStunned())
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        CheckStaminaState();
 
         CheckGrounded();
 
@@ -113,6 +154,59 @@ public class EnemyAI : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
+    }
+
+    private void CheckStaminaState()
+    {
+        if (enemyCombat == null) return;
+
+        float currentStamina = enemyCombat.GetCurrentStamina();
+        float maxStamina = enemyCombat.GetMaxStamina();
+        float staminaPercentage = currentStamina / maxStamina;
+
+        if (currentStamina <= staminaFleeThreshold && !isFleeingFromStaminaLoss)
+        {
+            isFleeingFromStaminaLoss = true;
+            Debug.Log($"<color=red>### STAMINA LOW ({currentStamina:F0}/{maxStamina:F0})! FLEEING FROM PLAYER! ###</color>");
+        }
+        else if (isFleeingFromStaminaLoss && staminaPercentage >= staminaRecoveryThreshold)
+        {
+            isFleeingFromStaminaLoss = false;
+            Debug.Log($"<color=green>### STAMINA RECOVERED ({currentStamina:F0}/{maxStamina:F0} = {staminaPercentage * 100:F0}%)! RESUMING NORMAL BEHAVIOR! ###</color>");
+        }
+    }
+
+    public void InterruptAllActions()
+    {
+        StopAllCoroutines();
+        CancelInvoke();
+
+        isDodging = false;
+        isThroughDodging = false;
+        isDamageImmune = false;
+        isRetreating = false;
+        isFleeingFromAbility = false;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+
+            if (rb.bodyType == RigidbodyType2D.Kinematic)
+            {
+                rb.bodyType = RigidbodyType2D.Dynamic;
+            }
+        }
+
+        if (player != null)
+        {
+            Collider2D playerCollider = player.GetComponent<Collider2D>();
+            if (playerCollider != null && enemyCollider != null)
+            {
+                Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
+            }
+        }
+
+        Debug.Log("<color=red>### ALL ENEMY ACTIONS INTERRUPTED BY STUN! ###</color>");
     }
 
     private bool IsAttacking()
@@ -165,6 +259,35 @@ public class EnemyAI : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (stunEffect != null && stunEffect.IsStunned())
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (isFleeingFromStaminaLoss)
+        {
+            FleeFromStaminaLoss();
+            return;
+        }
+
+        if (genieAbility2 != null && genieAbility2.IsBarrierActive())
+        {
+            WalkAwayFromBarrier();
+            return;
+        }
+
+        if (genieAbility != null && genieAbility.IsCasting())
+        {
+            FleeFromAbility();
+            return;
+        }
+
+        if (isFleeingFromAbility)
+        {
+            isFleeingFromAbility = false;
+        }
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         bool playerIsAttacking = IsPlayerAttacking();
 
@@ -205,6 +328,63 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private void FleeFromStaminaLoss()
+    {
+        if (player == null) return;
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float directionFromPlayer = Mathf.Sign(transform.position.x - player.position.x);
+
+        if (distanceToPlayer < staminaFleeDistance)
+        {
+            rb.linearVelocity = new Vector2(directionFromPlayer * staminaFleeSpeed, rb.linearVelocity.y);
+            Debug.DrawLine(transform.position, transform.position + Vector3.right * directionFromPlayer * 3f, Color.red);
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        }
+    }
+
+    private void WalkAwayFromBarrier()
+    {
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float directionFromPlayer = Mathf.Sign(transform.position.x - player.position.x);
+        float walkSpeed = stats != null ? stats.moveSpeed : 2f;
+
+        if (distanceToPlayer < retreatDistance)
+        {
+            rb.linearVelocity = new Vector2(directionFromPlayer * walkSpeed, rb.linearVelocity.y);
+            Debug.DrawLine(transform.position, transform.position + Vector3.right * directionFromPlayer * 2f, Color.cyan);
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
+
+    private void FleeFromAbility()
+    {
+        if (!isFleeingFromAbility)
+        {
+            isFleeingFromAbility = true;
+            currentFleeDirection = Random.value > 0.5f ? 1f : -1f;
+            lastFleeDirectionChange = Time.time;
+            Debug.Log("<color=yellow>Enemy detected ability cast! Fleeing!</color>");
+        }
+
+        if (Time.time - lastFleeDirectionChange >= fleeDirectionChangeInterval)
+        {
+            currentFleeDirection *= -1f;
+            lastFleeDirectionChange = Time.time;
+            Debug.Log($"<color=yellow>Enemy changed flee direction! Now going {(currentFleeDirection > 0 ? "RIGHT" : "LEFT")}</color>");
+        }
+
+        rb.linearVelocity = new Vector2(currentFleeDirection * abilityFleeSpeed, rb.linearVelocity.y);
+
+        Debug.DrawLine(transform.position, transform.position + Vector3.right * currentFleeDirection * 3f, Color.yellow);
+    }
+
     private bool IsPlayerAttacking()
     {
         bool heavyAttacking = playerHeavyAttack != null && playerHeavyAttack.IsAttacking();
@@ -238,6 +418,8 @@ public class EnemyAI : MonoBehaviour
     private void CheckForIncomingAttacks()
     {
         if (IsAttacking()) return;
+        if (stunEffect != null && stunEffect.IsStunned()) return;
+        if (isFleeingFromStaminaLoss) return;
 
         CheckHeavyAttack();
         CheckLightAttack();
@@ -283,6 +465,18 @@ public class EnemyAI : MonoBehaviour
 
     private void TryDodgeAttack(string attackType)
     {
+        if (stunEffect != null && stunEffect.IsStunned())
+        {
+            Debug.Log("<color=red>DODGE BLOCKED: Enemy is stunned!</color>");
+            return;
+        }
+
+        if (isFleeingFromStaminaLoss)
+        {
+            Debug.Log("<color=red>DODGE BLOCKED: Enemy is fleeing from stamina loss!</color>");
+            return;
+        }
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         bool isBlockedBehind = IsBlockedByWallBehind();
 
@@ -347,6 +541,11 @@ public class EnemyAI : MonoBehaviour
     private void PerformDodge()
     {
         if (enemyCombat == null || stats == null) return;
+        if (stunEffect != null && stunEffect.IsStunned())
+        {
+            Debug.Log("<color=red>DODGE CANCELLED: Stunned during execution!</color>");
+            return;
+        }
 
         bool consumed = enemyCombat.ConsumeStamina(stats.dodgeStaminaCost);
 
@@ -367,12 +566,23 @@ public class EnemyAI : MonoBehaviour
 
         Debug.Log($"<color=cyan>### ENEMY NORMAL DODGE (AWAY)! ###</color>");
 
+        BleedEffect bleedEffect = GetComponent<BleedEffect>();
+        if (bleedEffect != null)
+        {
+            bleedEffect.OnEnemyDodge();
+        }
+
         Invoke(nameof(EndDodge), 0.2f);
     }
 
     private void PerformThroughDodge()
     {
         if (enemyCombat == null || stats == null || player == null) return;
+        if (stunEffect != null && stunEffect.IsStunned())
+        {
+            Debug.Log("<color=red>THROUGH-DODGE CANCELLED: Stunned during execution!</color>");
+            return;
+        }
 
         bool consumed = enemyCombat.ConsumeStamina(stats.dodgeStaminaCost);
 
@@ -387,9 +597,80 @@ public class EnemyAI : MonoBehaviour
         isThroughDodging = true;
         lastDodgeTime = Time.time;
 
+        BleedEffect bleedEffect = GetComponent<BleedEffect>();
+        if (bleedEffect != null)
+        {
+            bleedEffect.OnEnemyDodge();
+        }
+
+        FlipEnemyImmediately();
+
         Debug.Log($"<color=magenta>### STARTING THROUGH-DODGE ###</color>");
 
         StartCoroutine(ThroughDodgeCoroutine());
+    }
+
+    private void FlipEnemyImmediately()
+    {
+        Transform enemySprite = transform.Find("EnemySprite");
+        if (enemySprite != null)
+        {
+            Vector3 spriteScale = enemySprite.localScale;
+            spriteScale.x *= -1;
+            enemySprite.localScale = spriteScale;
+            Debug.Log($"<color=magenta>Enemy sprite flipped! New scale.x: {spriteScale.x}</color>");
+        }
+
+        Transform attackPoint = transform.Find("AttackPoint");
+        if (attackPoint != null)
+        {
+            Vector3 pointPos = attackPoint.localPosition;
+            pointPos.x *= -1;
+            attackPoint.localPosition = pointPos;
+            Debug.Log($"<color=magenta>Enemy attack point flipped! New pos.x: {pointPos.x}</color>");
+        }
+
+        FlipEnemyActiveVFX();
+    }
+
+    private void FlipEnemyActiveVFX()
+    {
+        VFXFlipper[] allFlippers = FindObjectsOfType<VFXFlipper>();
+        int vfxFlipped = 0;
+
+        foreach (VFXFlipper flipper in allFlippers)
+        {
+            GameObject obj = flipper.gameObject;
+
+            if (obj.transform.parent != null && obj.transform.parent == transform)
+            {
+                flipper.FlipX();
+                vfxFlipped++;
+            }
+        }
+
+        if (vfxFlipped == 0)
+        {
+            GameObject[] allObjects = FindObjectsOfType<GameObject>();
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name.Contains("Enemy") && obj.name.Contains("Slash") && obj.name.Contains("(Clone)"))
+                {
+                    if (obj.transform.parent != null && obj.transform.parent == transform)
+                    {
+                        Transform objTransform = obj.transform;
+                        Vector3 vfxScale = objTransform.localScale;
+                        vfxScale.x *= -1;
+                        objTransform.localScale = vfxScale;
+
+                        vfxFlipped++;
+                        Debug.Log($"<color=magenta>Enemy VFX flipped: {obj.name} | New scale.x: {vfxScale.x}</color>");
+                    }
+                }
+            }
+        }
+
+        Debug.Log($"<color=magenta>Total enemy VFX flipped: {vfxFlipped}</color>");
     }
 
     private IEnumerator ThroughDodgeCoroutine()
@@ -415,6 +696,23 @@ public class EnemyAI : MonoBehaviour
 
         while (elapsed < throughDodgeDuration)
         {
+            if (stunEffect != null && stunEffect.IsStunned())
+            {
+                rb.bodyType = RigidbodyType2D.Dynamic;
+
+                if (playerCollider != null)
+                {
+                    Physics2D.IgnoreCollision(enemyCollider, playerCollider, false);
+                }
+
+                isDodging = false;
+                isDamageImmune = false;
+                isThroughDodging = false;
+
+                Debug.Log("<color=red>Through-dodge interrupted by stun!</color>");
+                yield break;
+            }
+
             elapsed += Time.deltaTime;
             float t = elapsed / throughDodgeDuration;
 
@@ -499,6 +797,12 @@ public class EnemyAI : MonoBehaviour
         return isDamageImmune;
     }
 
+    public bool IsFleeingFromStaminaLoss()
+    {
+        return isFleeingFromStaminaLoss;
+    }
+
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -525,6 +829,18 @@ public class EnemyAI : MonoBehaviour
 
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawLine(transform.position, transform.position + (Vector3)rayDirection * wallCheckDistance);
+            }
+
+            if (isFleeingFromAbility)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(transform.position, abilityFleeDistance);
+            }
+
+            if (isFleeingFromStaminaLoss)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(transform.position, staminaFleeDistance);
             }
         }
     }

@@ -9,6 +9,9 @@ public class EnemyHealth : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Slider healthSlider;
 
+    [Header("Stamina Flee Damage Reduction")]
+    [SerializeField] private float staminaFleeDamageReduction = 0.5f;
+
     private float currentHealth;
 
     private void Start()
@@ -28,16 +31,25 @@ public class EnemyHealth : MonoBehaviour
         if (stats == null) return;
 
         EnemyAI enemyAI = GetComponent<EnemyAI>();
+
         if (enemyAI != null && enemyAI.IsDamageImmune())
         {
             Debug.Log($"{gameObject.name} is damage immune during through-dodge!");
             return;
         }
 
-        currentHealth -= damage;
+        float finalDamage = damage;
+
+        if (enemyAI != null && enemyAI.IsFleeingFromStaminaLoss())
+        {
+            finalDamage = damage * staminaFleeDamageReduction;
+            Debug.Log($"<color=cyan>{gameObject.name} is fleeing from stamina loss! Damage reduced: {damage:F0} -> {finalDamage:F0} ({staminaFleeDamageReduction * 100}%)</color>");
+        }
+
+        currentHealth -= finalDamage;
         currentHealth = Mathf.Max(0, currentHealth);
 
-        Debug.Log($"{gameObject.name} took {damage} damage! Health: {currentHealth}/{stats.maxHealth}");
+        Debug.Log($"{gameObject.name} took {finalDamage:F0} damage! Health: {currentHealth:F0}/{stats.maxHealth}");
 
         UpdateHealthUI();
 

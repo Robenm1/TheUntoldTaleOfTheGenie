@@ -23,6 +23,8 @@ public class EnemyCombat : MonoBehaviour
     private bool isAttacking = false;
     private Transform target;
     private const int MAX_COMBO = 3;
+    private Transform enemySprite;
+    private StunEffect stunEffect;
 
     private void Start()
     {
@@ -30,6 +32,9 @@ public class EnemyCombat : MonoBehaviour
         {
             Debug.LogError("EnemyStats not assigned on " + gameObject.name);
         }
+
+        enemySprite = transform.Find("EnemySprite");
+        stunEffect = GetComponent<StunEffect>();
 
         currentStamina = stats.maxStamina;
         UpdateStaminaUI();
@@ -45,6 +50,8 @@ public class EnemyCombat : MonoBehaviour
 
     private void Update()
     {
+        if (!enabled) return; // SAFEGUARD: Don't run if disabled
+
         if (stats == null) return;
 
         HandleStaminaRegeneration();
@@ -72,6 +79,7 @@ public class EnemyCombat : MonoBehaviour
     public bool CanAttack()
     {
         if (isAttacking) return false;
+        if (stunEffect != null && stunEffect.IsStunned()) return false;
         if (Time.time - lastAttackTime < stats.attackCooldown) return false;
         if (currentStamina < stats.GetSlashStaminaCost(0)) return false;
         return true;
@@ -104,8 +112,26 @@ public class EnemyCombat : MonoBehaviour
         PerformNextSlash();
     }
 
+    public void InterruptAttack()
+    {
+        if (!isAttacking) return;
+
+        CancelInvoke(nameof(DealCurrentSlashDamage));
+        CancelInvoke(nameof(FinishCurrentSlash));
+
+        EndCombo();
+
+        Debug.Log("<color=red>Enemy attack interrupted by stun!</color>");
+    }
+
     private void PerformNextSlash()
     {
+        if (stunEffect != null && stunEffect.IsStunned())
+        {
+            EndCombo();
+            return;
+        }
+
         if (currentCombo >= MAX_COMBO)
         {
             EndCombo();
@@ -146,7 +172,12 @@ public class EnemyCombat : MonoBehaviour
             float direction = Mathf.Sign(target.position.x - transform.position.x);
             if (direction != 0)
             {
-                transform.localScale = new Vector3(direction > 0 ? 1 : -1, 1, 1);
+                if (enemySprite != null)
+                {
+                    Vector3 spriteScale = enemySprite.localScale;
+                    spriteScale.x = Mathf.Abs(spriteScale.x) * (direction > 0 ? 1 : -1);
+                    enemySprite.localScale = spriteScale;
+                }
 
                 attackPoint.localPosition = new Vector3(Mathf.Abs(attackPoint.localPosition.x) * direction, attackPoint.localPosition.y, attackPoint.localPosition.z);
             }
@@ -166,6 +197,24 @@ public class EnemyCombat : MonoBehaviour
         if (vfxPrefab != null && attackPoint != null)
         {
             GameObject vfx = Instantiate(vfxPrefab, attackPoint.position, attackPoint.rotation);
+
+            if (enemySprite != null)
+            {
+                float enemyFacingDirection = Mathf.Sign(enemySprite.localScale.x);
+
+                if (enemyFacingDirection < 0)
+                {
+                    Vector3 vfxScale = vfx.transform.localScale;
+                    vfxScale.x *= -1;
+                    vfx.transform.localScale = vfxScale;
+                    Debug.Log($"<color=yellow>Enemy VFX {vfx.name} flipped for left-facing enemy! New scale.x: {vfxScale.x}</color>");
+                }
+                else
+                {
+                    Debug.Log($"<color=green>Enemy VFX {vfx.name} keeping default for right-facing enemy! Scale.x: {vfx.transform.localScale.x}</color>");
+                }
+            }
+
             Destroy(vfx, stats.GetSlashDuration(slashIndex) + 0.5f);
         }
         else
