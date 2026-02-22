@@ -646,7 +646,7 @@ MonoBehaviour:
   - speaker: 0
     text: Who are you!?
   - speaker: 1
-    text: I MADE YOU!
+    text: I MADE YOU!... Im Shahrazad
   chatCanvas: {fileID: 521026784}
   mainCanvas: {fileID: 1238695542}
   playerBubble: {fileID: 148892338}
