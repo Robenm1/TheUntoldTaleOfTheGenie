@@ -18,6 +18,7 @@ public class BGMManager : MonoBehaviour
     private AudioSource audioSource;
     private float targetVolume;
     private bool isFading = false;
+    private float originalVolume;
 
     private static BGMManager instance;
 
@@ -56,6 +57,7 @@ public class BGMManager : MonoBehaviour
         audioSource.loop = loop;
         audioSource.playOnAwake = false;
         targetVolume = volume;
+        originalVolume = volume;
         audioSource.volume = 0f;
     }
 
@@ -93,6 +95,41 @@ public class BGMManager : MonoBehaviour
             backgroundMusic = newClip;
             PlayMusic();
         }
+    }
+
+    public void LowerVolume(float newVolume, float duration = 1f)
+    {
+        if (audioSource == null) return;
+
+        StopAllCoroutines();
+        StartCoroutine(FadeToVolume(newVolume, duration));
+    }
+
+    public void RestoreVolume(float duration = 1f)
+    {
+        if (audioSource == null) return;
+
+        StopAllCoroutines();
+        StartCoroutine(FadeToVolume(originalVolume, duration));
+    }
+
+    private IEnumerator FadeToVolume(float targetVol, float duration)
+    {
+        isFading = true;
+        float elapsed = 0f;
+        float startVolume = audioSource.volume;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+            audioSource.volume = Mathf.Lerp(startVolume, targetVol, progress);
+            yield return null;
+        }
+
+        audioSource.volume = targetVol;
+        isFading = false;
+        Debug.Log($"<color=cyan>BGM volume changed to {targetVol * 100}%</color>");
     }
 
     private IEnumerator FadeIn()

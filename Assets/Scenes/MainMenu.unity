@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -245,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -458,7 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -517,7 +517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &240978078
 RectTransform:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -781,12 +781,18 @@ MonoBehaviour:
   - {fileID: 240978077}
   doorAnimation: {fileID: 1234806562}
   bgmManager: {fileID: 785278007}
-  titleTopPosition: {x: 0, y: 409.3}
+  mainCamera: {fileID: 1457149691}
+  titleTopPosition: {x: 31, y: 450}
   titleTopScale: 0.5
   titleMoveUpDuration: 1
-  buttonFadeInDuration: 0.8
-  delayBetweenButtons: 0.1
+  pressStartSound: {fileID: 8300000, guid: b806b0b48a6aae84994be559cb93bed5, type: 3}
+  playButtonSound: {fileID: 0}
+  soundVolume: 1
+  zoomTargetSize: 2
+  zoomDuration: 1.5
+  zoomTargetPosition: {x: 0, y: 0, z: -10}
   buttonFadeOutDuration: 0.5
+  gameSceneName: GameScene
   instructionsSceneName: InstructionsScene
   canAcceptInput: 0
 --- !u!1 &487402264
@@ -840,7 +846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -882,7 +888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &572481951
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1093,6 +1099,9 @@ RectTransform:
   m_Children:
   - {fileID: 268915238}
   - {fileID: 1738712830}
+  - {fileID: 572481951}
+  - {fileID: 1447547646}
+  - {fileID: 240978078}
   - {fileID: 1654022172}
   - {fileID: 487402265}
   - {fileID: 23589134}
@@ -1100,9 +1109,6 @@ RectTransform:
   - {fileID: 1568951327}
   - {fileID: 148018310}
   - {fileID: 1856860206}
-  - {fileID: 572481951}
-  - {fileID: 1447547646}
-  - {fileID: 240978078}
   - {fileID: 140743743}
   - {fileID: 1874594860}
   m_Father: {fileID: 0}
@@ -1371,7 +1377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DoorAnimation
   leftDoor: {fileID: 1654022172}
   rightDoor: {fileID: 487402265}
-  doorSlideDistance: 100
+  doorSlideDistance: 124.5
   doorOpenDuration: 3
   doorCurve:
     serializedVersion: 2
@@ -1432,7 +1438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1447547643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872,7 +1878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1947,7 +1953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2022,7 +2028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.3962264, g: 0.38314345, b: 0.38314345, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2098,7 +2104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

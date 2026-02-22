@@ -11,18 +11,28 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject[] menuButtons;
     [SerializeField] private DoorAnimation doorAnimation;
     [SerializeField] private BGMManager bgmManager;
+    [SerializeField] private Camera mainCamera;
 
     [Header("Title Animation")]
     [SerializeField] private Vector2 titleTopPosition = new Vector2(0, 300);
     [SerializeField] private float titleTopScale = 0.5f;
     [SerializeField] private float titleMoveUpDuration = 1f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip pressStartSound;
+    [SerializeField] private AudioClip playButtonSound;
+    [SerializeField][Range(0f, 1f)] private float soundVolume = 1f;
+
+    [Header("Camera Zoom")]
+    [SerializeField] private float zoomTargetSize = 3f;
+    [SerializeField] private float zoomDuration = 1.5f;
+    [SerializeField] private Vector3 zoomTargetPosition = Vector3.zero;
+
     [Header("Button Animation")]
-    [SerializeField] private float buttonFadeInDuration = 0.8f;
-    [SerializeField] private float delayBetweenButtons = 0.1f;
     [SerializeField] private float buttonFadeOutDuration = 0.5f;
 
     [Header("Scene Names")]
+    [SerializeField] private string gameSceneName = "GameScene";
     [SerializeField] private string instructionsSceneName = "InstructionsScene";
 
     [Header("Input")]
@@ -30,13 +40,23 @@ public class MenuController : MonoBehaviour
 
     private Vector2 titleOriginalPosition;
     private Vector3 titleOriginalScale;
-    private bool isAnimating = false;
-    private float animationProgress = 0f;
     private CanvasGroup[] buttonCanvasGroups;
     private bool buttonsVisible = false;
+    private bool doorsOpened = false;
+    private bool isAnimatingTitle = false;
+    private float titleAnimationProgress = 0f;
+    private AudioSource audioSource;
 
     private void Awake()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+
         if (titleTransform != null)
         {
             titleOriginalPosition = titleTransform.anchoredPosition;
@@ -49,7 +69,7 @@ public class MenuController : MonoBehaviour
         {
             if (button != null)
             {
-                button.SetActive(false);
+                button.SetActive(true);
             }
         }
     }
@@ -68,19 +88,19 @@ public class MenuController : MonoBehaviour
                     cg = menuButtons[i].AddComponent<CanvasGroup>();
                 }
                 buttonCanvasGroups[i] = cg;
-                cg.alpha = 0f;
+                cg.alpha = 1f;
             }
         }
     }
 
     private void Update()
     {
-        if (canAcceptInput && !isAnimating && CheckForAnyInput())
+        if (canAcceptInput && !doorsOpened && CheckForAnyInput())
         {
-            StartTitleTransition();
+            OnPressToStartPressed();
         }
 
-        if (isAnimating)
+        if (isAnimatingTitle)
         {
             AnimateTitle();
         }
@@ -110,14 +130,15 @@ public class MenuController : MonoBehaviour
     public void EnableInput()
     {
         canAcceptInput = true;
-        Debug.Log("<color=cyan>Menu input enabled! Press any key to continue...</color>");
+        Debug.Log("<color=cyan>Press to start enabled!</color>");
     }
 
-    private void StartTitleTransition()
+    private void OnPressToStartPressed()
     {
-        isAnimating = true;
-        animationProgress = 0f;
+        doorsOpened = true;
         canAcceptInput = false;
+
+        PlaySound(pressStartSound);
 
         foreach (GameObject pressText in pressToStartTexts)
         {
@@ -127,13 +148,16 @@ public class MenuController : MonoBehaviour
             }
         }
 
-        Debug.Log("<color=yellow>Starting title transition to top...</color>");
+        isAnimatingTitle = true;
+        titleAnimationProgress = 0f;
+
+        Debug.Log("<color=yellow>Press to start activated! Moving title up and opening doors...</color>");
     }
 
     private void AnimateTitle()
     {
-        animationProgress += Time.deltaTime / titleMoveUpDuration;
-        float t = Mathf.Clamp01(animationProgress);
+        titleAnimationProgress += Time.deltaTime / titleMoveUpDuration;
+        float t = Mathf.Clamp01(titleAnimationProgress);
         float easedT = EaseInOutCubic(t);
 
         Vector2 newPosition = Vector2.Lerp(titleOriginalPosition, titleTopPosition, easedT);
@@ -144,60 +168,37 @@ public class MenuController : MonoBehaviour
 
         if (t >= 1f)
         {
-            isAnimating = false;
-            ShowMenuButtons();
-            Debug.Log("<color=green>Title transition complete!</color>");
+            isAnimatingTitle = false;
+            OpenDoorsAndEnableButtons();
+            Debug.Log("<color=green>Title moved to top!</color>");
         }
     }
 
-    private void ShowMenuButtons()
+    private void OpenDoorsAndEnableButtons()
     {
-        StartCoroutine(FadeInButtons());
-    }
-
-    private IEnumerator FadeInButtons()
-    {
-        for (int i = 0; i < menuButtons.Length; i++)
+        if (doorAnimation != null)
         {
-            if (menuButtons[i] != null)
-            {
-                menuButtons[i].SetActive(true);
-                StartCoroutine(FadeInButton(buttonCanvasGroups[i], i));
-
-                if (i < menuButtons.Length - 1)
-                {
-                    yield return new WaitForSeconds(delayBetweenButtons);
-                }
-            }
+            doorAnimation.OpenDoorsOnly();
         }
+
+        StartCoroutine(EnableButtonsAfterDoors());
+    }
+
+    private IEnumerator EnableButtonsAfterDoors()
+    {
+        yield return new WaitForSeconds(1.5f);
 
         buttonsVisible = true;
-    }
-
-    private IEnumerator FadeInButton(CanvasGroup canvasGroup, int buttonIndex)
-    {
-        if (canvasGroup == null) yield break;
-
-        float elapsed = 0f;
-        canvasGroup.alpha = 0f;
-
-        while (elapsed < buttonFadeInDuration)
-        {
-            elapsed += Time.deltaTime;
-            float progress = Mathf.Clamp01(elapsed / buttonFadeInDuration);
-            canvasGroup.alpha = EaseOutCubic(progress);
-            yield return null;
-        }
-
-        canvasGroup.alpha = 1f;
-        Debug.Log($"<color=green>Button {buttonIndex} fade-in complete!</color>");
+        Debug.Log("<color=green>Buttons are now clickable!</color>");
     }
 
     public void OnPlayButtonPressed()
     {
         if (!buttonsVisible) return;
 
-        Debug.Log("<color=yellow>Play button pressed! Starting exit sequence...</color>");
+        PlaySound(playButtonSound);
+
+        Debug.Log("<color=yellow>Play button pressed! Starting game sequence...</color>");
         StartCoroutine(PlayButtonSequence());
     }
 
@@ -219,26 +220,24 @@ public class MenuController : MonoBehaviour
 #endif
     }
 
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip, soundVolume);
+        }
+    }
+
     private IEnumerator PlayButtonSequence()
     {
         buttonsVisible = false;
 
-        yield return StartCoroutine(FadeOutButtons());
+        StartCoroutine(FadeOutButtons());
+        StartCoroutine(ZoomCamera());
 
-        if (bgmManager != null)
-        {
-            bgmManager.StopMusic(fade: true);
-            Debug.Log("<color=yellow>Fading out BGM as doors open...</color>");
-        }
+        yield return new WaitForSeconds(zoomDuration + 0.5f);
 
-        if (doorAnimation != null)
-        {
-            doorAnimation.OpenDoors();
-        }
-        else
-        {
-            Debug.LogError("DoorAnimation reference is missing!");
-        }
+        SceneManager.LoadScene(gameSceneName);
     }
 
     private IEnumerator InstructionsButtonSequence()
@@ -250,7 +249,6 @@ public class MenuController : MonoBehaviour
         if (bgmManager != null)
         {
             bgmManager.StopMusic(fade: true);
-            Debug.Log("<color=yellow>Fading out BGM...</color>");
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -288,6 +286,40 @@ public class MenuController : MonoBehaviour
         }
 
         Debug.Log("<color=green>Buttons faded out!</color>");
+    }
+
+    private IEnumerator ZoomCamera()
+    {
+        if (mainCamera == null)
+        {
+            Debug.LogError("Main Camera is null!");
+            yield break;
+        }
+
+        float startSize = mainCamera.orthographicSize;
+        Vector3 startPosition = mainCamera.transform.position;
+
+        Debug.Log($"<color=cyan>Camera zooming from size {startSize} to {zoomTargetSize}...</color>");
+        Debug.Log($"<color=cyan>Camera zooming from position {startPosition} to {zoomTargetPosition}...</color>");
+
+        float elapsed = 0f;
+
+        while (elapsed < zoomDuration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / zoomDuration);
+            float easedProgress = EaseInOutCubic(progress);
+
+            mainCamera.orthographicSize = Mathf.Lerp(startSize, zoomTargetSize, easedProgress);
+            mainCamera.transform.position = Vector3.Lerp(startPosition, zoomTargetPosition, easedProgress);
+
+            yield return null;
+        }
+
+        mainCamera.orthographicSize = zoomTargetSize;
+        mainCamera.transform.position = zoomTargetPosition;
+
+        Debug.Log($"<color=green>Camera zoom complete! Final size: {mainCamera.orthographicSize}, Final position: {mainCamera.transform.position}</color>");
     }
 
     private float EaseInOutCubic(float t)

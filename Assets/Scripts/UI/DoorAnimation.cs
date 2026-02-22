@@ -37,12 +37,55 @@ public class DoorAnimation : MonoBehaviour
         if (rightDoor != null) rightDoor.gameObject.SetActive(true);
     }
 
+    public void OpenDoorsOnly()
+    {
+        if (isAnimating) return;
+
+        Debug.Log("<color=yellow>Opening doors (no scene load)...</color>");
+        StartCoroutine(OpenDoorsOnlyCoroutine());
+    }
+
     public void OpenDoors()
     {
         if (isAnimating) return;
 
         Debug.Log("<color=yellow>Opening doors...</color>");
         StartCoroutine(OpenDoorsCoroutine());
+    }
+
+    private IEnumerator OpenDoorsOnlyCoroutine()
+    {
+        isAnimating = true;
+        float elapsed = 0f;
+
+        Vector2 leftDoorTarget = leftDoorOriginalPos + new Vector2(-doorSlideDistance, 0);
+        Vector2 rightDoorTarget = rightDoorOriginalPos + new Vector2(doorSlideDistance, 0);
+
+        while (elapsed < doorOpenDuration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / doorOpenDuration);
+            float curveValue = doorCurve.Evaluate(progress);
+
+            if (leftDoor != null)
+            {
+                leftDoor.anchoredPosition = Vector2.Lerp(leftDoorOriginalPos, leftDoorTarget, curveValue);
+            }
+
+            if (rightDoor != null)
+            {
+                rightDoor.anchoredPosition = Vector2.Lerp(rightDoorOriginalPos, rightDoorTarget, curveValue);
+            }
+
+            yield return null;
+        }
+
+        if (leftDoor != null) leftDoor.anchoredPosition = leftDoorTarget;
+        if (rightDoor != null) rightDoor.anchoredPosition = rightDoorTarget;
+
+        isAnimating = false;
+
+        Debug.Log("<color=green>Doors opened!</color>");
     }
 
     private IEnumerator OpenDoorsCoroutine()
