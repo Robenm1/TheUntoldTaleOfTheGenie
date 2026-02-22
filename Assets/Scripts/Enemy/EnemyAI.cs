@@ -43,6 +43,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float abilityFleeSpeed = 7f;
     [SerializeField] private float abilityFleeDistance = 8f;
     [SerializeField] private float fleeDirectionChangeInterval = 0.5f;
+    [SerializeField] private float spikeDetectionRadius = 3f;
 
     [Header("Stamina Flee Settings")]
     [SerializeField] private float staminaFleeSpeed = 5f;
@@ -265,27 +266,27 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        if (isFleeingFromStaminaLoss)
-        {
-            FleeFromStaminaLoss();
-            return;
-        }
-
-        if (genieAbility2 != null && genieAbility2.IsBarrierActive())
-        {
-            WalkAwayFromBarrier();
-            return;
-        }
-
         if (genieAbility != null && genieAbility.IsCasting())
         {
             FleeFromAbility();
             return;
         }
 
+        if (isFleeingFromStaminaLoss)
+        {
+            FleeFromStaminaLoss();
+            return;
+        }
+
         if (isFleeingFromAbility)
         {
             isFleeingFromAbility = false;
+        }
+
+        if (genieAbility2 != null && genieAbility2.IsBarrierActive())
+        {
+            WalkAwayFromBarrier();
+            return;
         }
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -332,6 +333,12 @@ public class EnemyAI : MonoBehaviour
     {
         if (player == null) return;
 
+        if (genieAbility != null && genieAbility.IsCasting())
+        {
+            FleeFromAbility();
+            return;
+        }
+
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         float directionFromPlayer = Mathf.Sign(transform.position.x - player.position.x);
 
@@ -365,12 +372,46 @@ public class EnemyAI : MonoBehaviour
 
     private void FleeFromAbility()
     {
+        GameObject greenBox = GameObject.Find("GreenBoxFollow");
+        GameObject redBox = GameObject.Find("RedBox");
+
+        Vector3? dangerPosition = null;
+
+        if (redBox != null && redBox.activeSelf)
+        {
+            dangerPosition = redBox.transform.position;
+            Debug.DrawLine(transform.position, redBox.transform.position, Color.red);
+        }
+        else if (greenBox != null && greenBox.activeSelf)
+        {
+            dangerPosition = greenBox.transform.position;
+            Debug.DrawLine(transform.position, greenBox.transform.position, Color.green);
+        }
+
+        if (dangerPosition.HasValue)
+        {
+            float distanceToSpike = Vector2.Distance(transform.position, dangerPosition.Value);
+
+            if (distanceToSpike < spikeDetectionRadius)
+            {
+                float directionFromSpike = Mathf.Sign(transform.position.x - dangerPosition.Value.x);
+
+                rb.linearVelocity = new Vector2(directionFromSpike * abilityFleeSpeed, rb.linearVelocity.y);
+
+                Debug.DrawLine(transform.position, transform.position + Vector3.right * directionFromSpike * 3f, Color.yellow);
+                Debug.Log($"<color=yellow>FLEEING FROM SPIKE! Distance: {distanceToSpike:F2}</color>");
+
+                isFleeingFromAbility = true;
+                return;
+            }
+        }
+
         if (!isFleeingFromAbility)
         {
             isFleeingFromAbility = true;
             currentFleeDirection = Random.value > 0.5f ? 1f : -1f;
             lastFleeDirectionChange = Time.time;
-            Debug.Log("<color=yellow>Enemy detected ability cast! Fleeing!</color>");
+            Debug.Log("<color=yellow>Enemy detected ability cast! Random fleeing!</color>");
         }
 
         if (Time.time - lastFleeDirectionChange >= fleeDirectionChangeInterval)
@@ -802,7 +843,6 @@ public class EnemyAI : MonoBehaviour
         return isFleeingFromStaminaLoss;
     }
 
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -842,6 +882,9 @@ public class EnemyAI : MonoBehaviour
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(transform.position, staminaFleeDistance);
             }
+
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(transform.position, spikeDetectionRadius);
         }
     }
 }
