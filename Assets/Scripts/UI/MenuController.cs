@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MenuController : MonoBehaviour
@@ -20,6 +21,9 @@ public class MenuController : MonoBehaviour
     [SerializeField] private float buttonFadeInDuration = 0.8f;
     [SerializeField] private float delayBetweenButtons = 0.1f;
     [SerializeField] private float buttonFadeOutDuration = 0.5f;
+
+    [Header("Scene Names")]
+    [SerializeField] private string instructionsSceneName = "InstructionsScene";
 
     [Header("Input")]
     [SerializeField] private bool canAcceptInput = false;
@@ -197,6 +201,14 @@ public class MenuController : MonoBehaviour
         StartCoroutine(PlayButtonSequence());
     }
 
+    public void OnInstructionsButtonPressed()
+    {
+        if (!buttonsVisible) return;
+
+        Debug.Log("<color=cyan>Instructions button pressed! Loading instructions...</color>");
+        StartCoroutine(InstructionsButtonSequence());
+    }
+
     public void OnExitButtonPressed()
     {
         Debug.Log("<color=red>Exit button pressed! Quitting game...</color>");
@@ -227,6 +239,23 @@ public class MenuController : MonoBehaviour
         {
             Debug.LogError("DoorAnimation reference is missing!");
         }
+    }
+
+    private IEnumerator InstructionsButtonSequence()
+    {
+        buttonsVisible = false;
+
+        yield return StartCoroutine(FadeOutButtons());
+
+        if (bgmManager != null)
+        {
+            bgmManager.StopMusic(fade: true);
+            Debug.Log("<color=yellow>Fading out BGM...</color>");
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        SceneManager.LoadScene(instructionsSceneName);
     }
 
     private IEnumerator FadeOutButtons()
