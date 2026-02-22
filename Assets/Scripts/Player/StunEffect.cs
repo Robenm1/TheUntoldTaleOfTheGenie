@@ -5,6 +5,7 @@ public class StunEffect : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject stunIconCanvas;
 
+    private AudioSource audioSource;
     private bool isStunned = false;
     private float stunEndTime = 0f;
     private StunIconSprite stunIconSprite;
@@ -14,6 +15,9 @@ public class StunEffect : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+
         GameObject canvasObj = GameObject.Find("Canvas");
         if (canvasObj != null)
         {
@@ -74,10 +78,16 @@ public class StunEffect : MonoBehaviour
         }
     }
 
-    public void ApplyStun(float duration)
+    public void ApplyStun(float duration, AudioClip stunSFX = null, float stunSFXVolume = 1f)
     {
         isStunned = true;
         stunEndTime = Time.time + duration;
+
+        if (stunSFX != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(stunSFX, stunSFXVolume);
+            Debug.Log("<color=cyan>Playing stun SFX!</color>");
+        }
 
         if (rb != null)
         {

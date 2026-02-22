@@ -19,9 +19,15 @@ public class PlayerLightAttack : MonoBehaviour
     [SerializeField] private GameObject lightAttack1VFX;
     [SerializeField] private GameObject lightAttack2VFX;
 
+    [Header("Light Attack SFX")]
+    [SerializeField] private AudioClip lightAttack1SFX;
+    [SerializeField] private AudioClip lightAttack2SFX;
+    [SerializeField][Range(0f, 1f)] private float lightAttackVolume = 1f;
+
     [Header("Combo Settings")]
     [SerializeField] private float comboWindow = 1.5f;
 
+    private AudioSource audioSource;
     private int currentLightCombo = 0;
     private float lastLightAttackTime;
     private bool isAttacking;
@@ -34,6 +40,9 @@ public class PlayerLightAttack : MonoBehaviour
         {
             Debug.LogError("PlayerStats not assigned on " + gameObject.name);
         }
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
 
         if (heavyAttack == null)
         {
@@ -108,16 +117,34 @@ public class PlayerLightAttack : MonoBehaviour
 
         if (currentLightCombo == 0)
         {
+            PlayLightAttackSFX(0);
             SpawnAttack1VFX();
             Invoke(nameof(ResetAttackState), stats.GetLightAttackDuration(0));
         }
         else if (currentLightCombo == 1)
         {
+            PlayLightAttackSFX(1);
             SpawnAttack2VFX();
             Invoke(nameof(ResetAttackState), stats.GetLightAttackDuration(1));
         }
 
         currentLightCombo++;
+    }
+
+    private void PlayLightAttackSFX(int attackIndex)
+    {
+        AudioClip sfx = attackIndex switch
+        {
+            0 => lightAttack1SFX,
+            1 => lightAttack2SFX,
+            _ => null
+        };
+
+        if (sfx != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(sfx, lightAttackVolume);
+            Debug.Log($"<color=cyan>Playing light attack {attackIndex + 1} SFX!</color>");
+        }
     }
 
     private void SpawnAttack1VFX()

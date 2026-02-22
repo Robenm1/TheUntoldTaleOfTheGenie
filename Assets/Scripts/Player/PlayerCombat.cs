@@ -21,6 +21,12 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject heavyAttack2VFX;
     [SerializeField] private GameObject heavyAttack3VFX;
 
+    [Header("Heavy Attack SFX")]
+    [SerializeField] private AudioClip heavyAttack1SFX;
+    [SerializeField] private AudioClip heavyAttack2SFX;
+    [SerializeField] private AudioClip heavyAttack3SFX;
+    [SerializeField][Range(0f, 1f)] private float heavyAttackVolume = 1f;
+
     [Header("Damage Timing")]
     [SerializeField] private float attack1DamageDelay = 0.2f;
     [SerializeField] private float attack2DamageDelay = 0.2f;
@@ -36,6 +42,7 @@ public class PlayerCombat : MonoBehaviour
     [Header("Combo Settings")]
     [SerializeField] private float comboWindow = 3f;
 
+    private AudioSource audioSource;
     private int currentHeavyCombo = 0;
     private float lastHeavyAttackTime;
     private bool isAttacking;
@@ -48,6 +55,9 @@ public class PlayerCombat : MonoBehaviour
         {
             Debug.LogError("PlayerStats not assigned on " + gameObject.name);
         }
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
 
         if (lightAttack == null)
         {
@@ -132,21 +142,41 @@ public class PlayerCombat : MonoBehaviour
 
         if (currentHeavyCombo == 0)
         {
+            PlayHeavyAttackSFX(0);
             SpawnAttack1VFX();
             Invoke(nameof(ResetAttackState), attack1Duration);
         }
         else if (currentHeavyCombo == 1)
         {
+            PlayHeavyAttackSFX(1);
             SpawnAttack2VFX();
             Invoke(nameof(ResetAttackState), attack2Duration);
         }
         else if (currentHeavyCombo == 2)
         {
+            PlayHeavyAttackSFX(2);
             SpawnAttack3VFX();
             Invoke(nameof(ResetAttackState), attack3Duration);
         }
 
         currentHeavyCombo++;
+    }
+
+    private void PlayHeavyAttackSFX(int attackIndex)
+    {
+        AudioClip sfx = attackIndex switch
+        {
+            0 => heavyAttack1SFX,
+            1 => heavyAttack2SFX,
+            2 => heavyAttack3SFX,
+            _ => null
+        };
+
+        if (sfx != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(sfx, heavyAttackVolume);
+            Debug.Log($"<color=cyan>Playing heavy attack {attackIndex + 1} SFX!</color>");
+        }
     }
 
     private void SpawnAttack1VFX()

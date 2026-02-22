@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 876b36aa8179d694b88d1ad0f7eb5cf4, type: 3}
   m_Name: EnemyStats
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  maxHealth: 500
+  maxHealth: 30
   maxStamina: 200
   staminaRegenRate: 10
   staminaRegenDelay: 2

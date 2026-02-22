@@ -30,10 +30,17 @@ public class GenieAbility2 : MonoBehaviour
     [SerializeField] private float minHoldTime = 0.5f;
     [SerializeField] private float stunDuration = 3f;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip barrierLoopSFX;
+    [SerializeField] private AudioClip stunSFX;
+    [SerializeField][Range(0f, 1f)] private float barrierSFXVolume = 0.5f;
+    [SerializeField][Range(0f, 1f)] private float stunSFXVolume = 1f;
+
     [Header("References")]
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float stunCheckRadius = 3f;
 
+    private AudioSource audioSource;
     private bool isBarrierActive = false;
     private bool isOnCooldown = false;
     private float currentBarrierTime = 0f;
@@ -44,6 +51,10 @@ public class GenieAbility2 : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.loop = true;
+
         playerSprite = transform.Find("GenieSprite");
 
         if (barrierVisualRight != null)
@@ -139,10 +150,30 @@ public class GenieAbility2 : MonoBehaviour
         barrierHoldDuration = 0f;
 
         UpdateBarrierSide();
-
+        PlayBarrierSFX();
         CheckForStunningEnemies();
 
         Debug.Log("<color=cyan>Barrier activated!</color>");
+    }
+
+    private void PlayBarrierSFX()
+    {
+        if (barrierLoopSFX != null && audioSource != null)
+        {
+            audioSource.clip = barrierLoopSFX;
+            audioSource.volume = barrierSFXVolume;
+            audioSource.Play();
+            Debug.Log("<color=cyan>Playing barrier loop SFX!</color>");
+        }
+    }
+
+    private void StopBarrierSFX()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+            Debug.Log("<color=cyan>Stopping barrier SFX!</color>");
+        }
     }
 
     private void UpdateBarrierSide()
@@ -212,6 +243,8 @@ public class GenieAbility2 : MonoBehaviour
     {
         isBarrierActive = false;
 
+        StopBarrierSFX();
+
         if (barrierVisualRight != null)
         {
             barrierVisualRight.SetActive(false);
@@ -263,7 +296,7 @@ public class GenieAbility2 : MonoBehaviour
                     stunEffect = enemyCollider.gameObject.AddComponent<StunEffect>();
                 }
 
-                stunEffect.ApplyStun(stunDuration);
+                stunEffect.ApplyStun(stunDuration, stunSFX, stunSFXVolume);
 
                 enemyCombat.InterruptAttack();
 

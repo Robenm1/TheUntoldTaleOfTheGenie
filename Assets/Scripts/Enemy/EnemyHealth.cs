@@ -88,6 +88,17 @@ public class EnemyHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log($"{gameObject.name} died!");
+
+        VictoryScreenManager victoryScreen = FindObjectOfType<VictoryScreenManager>();
+        if (victoryScreen != null)
+        {
+            victoryScreen.ShowVictoryScreen();
+        }
+        else
+        {
+            Debug.LogWarning("VictoryScreenManager not found in scene!");
+        }
+
         Destroy(gameObject);
     }
 

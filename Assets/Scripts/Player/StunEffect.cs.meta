@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 1f060314ab26dae429564d1c4f035efe
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - stunIconCanvas: {instanceID: 0}
+  - stunSFX: {fileID: 8300000, guid: 014c8bc2115e2124c9ff729d9af934f8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -35,9 +35,14 @@ public class GenieAbility1 : MonoBehaviour
     [Header("VFX")]
     [SerializeField] private GameObject spikePrefab;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip spikeSFX;
+    [SerializeField][Range(0f, 1f)] private float spikeSFXVolume = 1f;
+
     [Header("References")]
     [SerializeField] private LayerMask enemyLayer;
 
+    private AudioSource audioSource;
     private Transform targetEnemy;
     private bool isCasting = false;
     private bool isOnCooldown = false;
@@ -49,6 +54,9 @@ public class GenieAbility1 : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+
         if (greenBoxUI != null)
         {
             RectTransform greenRect = greenBoxUI.GetComponent<RectTransform>();
@@ -213,6 +221,7 @@ public class GenieAbility1 : MonoBehaviour
 
         Debug.Log("<color=red>Genie Ability 1 - Spikes rising!</color>");
 
+        PlaySpikeSFX();
         SpawnSpikes();
 
         if (redBoxUI != null)
@@ -230,6 +239,15 @@ public class GenieAbility1 : MonoBehaviour
         }
 
         StartCoroutine(CooldownCoroutine());
+    }
+
+    private void PlaySpikeSFX()
+    {
+        if (spikeSFX != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(spikeSFX, spikeSFXVolume);
+            Debug.Log("<color=cyan>Playing spike SFX!</color>");
+        }
     }
 
     private IEnumerator CooldownCoroutine()

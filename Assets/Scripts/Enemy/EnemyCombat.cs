@@ -16,6 +16,13 @@ public class EnemyCombat : MonoBehaviour
     [SerializeField] private GameObject slash2VFX;
     [SerializeField] private GameObject slash3VFX;
 
+    [Header("Slash SFX")]
+    [SerializeField] private AudioClip slash1SFX;
+    [SerializeField] private AudioClip slash2SFX;
+    [SerializeField] private AudioClip slash3SFX;
+    [SerializeField][Range(0f, 1f)] private float slashSFXVolume = 1f;
+
+    private AudioSource audioSource;
     private float currentStamina;
     private float lastAttackTime = -999f;
     private float lastStaminaUseTime = -999f;
@@ -32,6 +39,9 @@ public class EnemyCombat : MonoBehaviour
         {
             Debug.LogError("EnemyStats not assigned on " + gameObject.name);
         }
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
 
         enemySprite = transform.Find("EnemySprite");
         stunEffect = GetComponent<StunEffect>();
@@ -50,7 +60,7 @@ public class EnemyCombat : MonoBehaviour
 
     private void Update()
     {
-        if (!enabled) return; // SAFEGUARD: Don't run if disabled
+        if (!enabled) return;
 
         if (stats == null) return;
 
@@ -155,6 +165,7 @@ public class EnemyCombat : MonoBehaviour
 
         FaceTarget();
         SpawnSlashVFX(currentCombo);
+        PlaySlashSFX(currentCombo);
 
         float damageDelay = stats.GetSlashDamageDelay(currentCombo);
         float attackDuration = stats.GetSlashDuration(currentCombo);
@@ -220,6 +231,23 @@ public class EnemyCombat : MonoBehaviour
         else
         {
             Debug.LogWarning($"Slash {slashIndex + 1} VFX or attack point not assigned!");
+        }
+    }
+
+    private void PlaySlashSFX(int slashIndex)
+    {
+        AudioClip sfx = slashIndex switch
+        {
+            0 => slash1SFX,
+            1 => slash2SFX,
+            2 => slash3SFX,
+            _ => null
+        };
+
+        if (sfx != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(sfx, slashSFXVolume);
+            Debug.Log($"<color=cyan>Playing enemy slash {slashIndex + 1} SFX!</color>");
         }
     }
 
