@@ -383,8 +383,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 172, y: 126.79}
-  m_SizeDelta: {x: 582.09, y: 262.42}
+  m_AnchoredPosition: {x: 173, y: 128}
+  m_SizeDelta: {x: 582.09, y: 283.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &49140495
 MonoBehaviour:
@@ -414,8 +414,8 @@ MonoBehaviour:
     need to use the shield as parry use it as the enemy is hitting you and they will
     get stunned
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -439,8 +439,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.5
-  m_fontSizeBase: 26.5
+  m_fontSize: 28.9
+  m_fontSizeBase: 28.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -551,8 +551,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Bars
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &149921142
@@ -688,8 +688,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Player got only 1 big hp bar since we are playing as the boss
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -963,8 +963,8 @@ MonoBehaviour:
   m_text: When the enemy is stunned they cant move, dodge or even attack that will
     give you the oportunity to deal the maximum amount of damage
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1100,8 +1100,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: During red box its the last chance for the enemy gets out
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1239,8 +1239,8 @@ MonoBehaviour:
     3ed attack being a laser beam that spawns on the enemy's head dealing most of
     the damage and NO YOU CAN NOT SPAM
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1501,7 +1501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23.11, y: -95.75}
+  m_AnchoredPosition: {x: -23.105, y: -111}
   m_SizeDelta: {x: 831.18, y: 343.42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &547511096
@@ -1533,8 +1533,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1564,7 +1564,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1904,8 +1904,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SHEILD!(Player's secomd ability (E))
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2266,8 +2266,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: During green box enemy will try to dodge and get out of the box
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2556,8 +2556,8 @@ MonoBehaviour:
     TIP* you can use it to make the enemy consume all their stamina so they cnat
     dodge your attacks anymore and you can deal BIG DAMAGE to them'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3101,8 +3101,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SPIKES!(Player's first ability (Q))
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3238,8 +3238,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: When the enemy is bleeding they take damage whenever they dodge your attacks
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3700,8 +3700,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Heavy Attack (K)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4051,8 +4051,8 @@ MonoBehaviour:
   m_text: After the red box immediatly the spikes spawn from the ground damaging
     the enemy inflicting them with bleed
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4263,8 +4263,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Light attacks (J)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
-  m_sharedMaterial: {fileID: 2719049101473939498, guid: 8bbf6abfb97f64a4ca9c5e69086ef006, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
+  m_sharedMaterial: {fileID: -5746130056849394143, guid: 29853bde028b36b4dada9f6678bee418, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
